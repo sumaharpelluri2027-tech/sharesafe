@@ -11,17 +11,27 @@ h1{margin:0 0 8px;font-size:28px}p,li{color:var(--muted)}
 .key code{flex:1;background:var(--chip);border-radius:10px;padding:12px;font:15px ui-monospace,Menlo,monospace;word-break:break-all;color:var(--ink)}
 button{border:0;border-radius:10px;padding:0 16px;background:var(--ink);color:var(--bg);font-weight:600;cursor:pointer}
 a{color:var(--teal)}
+.activate{display:inline-block;background:var(--teal);color:#fff;text-decoration:none;border-radius:10px;padding:11px 18px;font-weight:600;margin:0 0 6px}
 </style></head><body><div class="card">
 <h1>Thank you! 🎉</h1>
 <p id="status">Your payment went through. Your license key is below and in your email.</p>
 <div class="key" id="keybox"><code id="key">Check your email for your license key.</code><button id="copy">Copy</button></div>
+<p id="oneclick" hidden><a class="activate" id="activate" href="#">Activate in ShareSafe</a><br><small>Already have ShareSafe open? This fills in your key for you.</small></p>
+<p id="manual">Or do it by hand:</p>
 <ol><li>Click the shield in your menu bar → <strong>Settings…</strong></li><li>Paste the key under <strong>License</strong> → <strong>Activate</strong>.</li></ol>
 <p>Haven't installed it yet? <a href="index.html#download">Download ShareSafe</a>.</p>
 </div>
 <script>
 const q=new URLSearchParams(location.search);
 const key=(q.get("license_key")||"").split(",")[0];
-if(key){document.getElementById("key").textContent=key}else{document.getElementById("copy").style.display="none"}
+if(key){
+  document.getElementById("key").textContent=key;
+  document.getElementById("activate").href="sharesafe://activate?key="+encodeURIComponent(key);
+  document.getElementById("oneclick").hidden=false;
+}else{
+  document.getElementById("copy").style.display="none";
+  document.getElementById("manual").hidden=true;
+}
 if(q.get("status")&&q.get("status")!=="succeeded"){document.getElementById("status").textContent="Payment status: "+q.get("status")+". If you were charged, your key will arrive by email."}
 document.getElementById("copy").onclick=()=>navigator.clipboard.writeText(key).then(()=>document.getElementById("copy").textContent="Copied")
 </script></body></html>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ShareSafe — make your Mac safe to screen-share</title>
-<meta name="description" content="One click before you share your screen: Do Not Disturb on, chat apps hidden, desktop clean. One click after: everything back. A tiny Mac menu bar app, $7 once.">
+<meta name="description" content="One click before you share your screen: Do Not Disturb on, chat apps hidden, desktop clean. One click after: everything back. A tiny Mac menu bar app, $5 once.">
 <meta property="og:title" content="ShareSafe — share your screen without the panic">
 <meta property="og:description" content="One click: Do Not Disturb on, WhatsApp/Slack hidden, desktop clean. One click: everything back. Mac menu bar app.">
 <meta property="og:image" content="img/after.png">
@@ -116,7 +116,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:14px;border-top:1px soli
       <p class="lede">One click before you present: Do Not Disturb on, WhatsApp and Slack hidden, desktop icons gone. One click after: everything back exactly as it was.</p>
       <div class="cta">
         <a class="btn primary" id="download" href="https://github.com/sumaharpelluri2027-tech/sharesafe/releases/latest/download/ShareSafe.zip">Download free trial</a>
-        <a class="btn ghost" href="#pricing">$7 once, no subscription</a>
+        <a class="btn ghost" href="#pricing">$5 once, no subscription</a>
       </div>
       <p class="fine">7 days of everything free · macOS 13 Ventura or later · Apple Silicon &amp; Intel</p>
     </div>
@@ -179,7 +179,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:14px;border-top:1px soli
       </div>
       <div class="plan pro">
         <h3>ShareSafe Pro</h3>
-        <div class="price">$7 <small>one-time</small></div>
+        <div class="price">$5 <small>one-time</small></div>
         <ul>
           <li>Everything, forever, including updates to v1.x</li>
           <li>Do Not Disturb + desktop cover + hide everything</li>
@@ -187,7 +187,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:14px;border-top:1px soli
           <li>Auto Go Safe for Zoom, Teams, FaceTime, Webex</li>
           <li>Use on 2 of your Macs</li>
         </ul>
-        <a class="btn primary" id="buy" href="#">Buy for $7</a>
+        <a class="btn primary" id="buy" href="#">Buy for $5</a>
         <p class="fine">Secure checkout by Dodo Payments (cards, UPI and local methods). Your license key arrives by email and on the next page.</p>
       </div>
     </div>
@@ -197,7 +197,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:14px;border-top:1px soli
     <h2>FAQ</h2>
     <details open>
       <summary>macOS says it "can't verify the developer" or that ShareSafe "can't be opened". Is it safe?</summary>
-      <p>ShareSafe is signed but not notarized: notarization needs a $99/year Apple Developer account, and we kept the app $7 instead. The first time you open it:</p>
+      <p>ShareSafe is signed but not notarized: notarization needs a $99/year Apple Developer account, and we kept the app $5 instead. The first time you open it:</p>
       <ol>
         <li>Unzip <strong>ShareSafe.zip</strong> and drag <strong>ShareSafe</strong> into <strong>Applications</strong>.</li>
         <li><strong>Right-click</strong> (or Control-click) ShareSafe → <strong>Open</strong> → <strong>Open</strong>.</li>
@@ -223,7 +223,7 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:14px;border-top:1px soli
     </details>
     <details>
       <summary>Can I get a refund?</summary>
-      <p>Yes. If ShareSafe doesn't work for you within 14 days of buying, reply to your receipt email or open a support request and you'll get your $7 back.</p>
+      <p>Yes. If ShareSafe doesn't work for you within 14 days of buying, reply to your receipt email or open a support request and you'll get your $5 back.</p>
     </details>
     <details>
       <summary>Which Macs does it support?</summary>
@@ -238,12 +238,15 @@ footer{padding:40px 0 60px;color:var(--muted);font-size:14px;border-top:1px soli
   </footer>
 </div>
 <script>
-  // Set once the Dodo product exists: https://checkout.dodopayments.com/buy/<product_id>
-  const CHECKOUT = "";
+  // The only thing to fill in once the Dodo product exists: its product id, e.g. "pdt_abc123".
+  const PRODUCT_ID = "";
+  const DODO_TEST_MODE = false;          // true while testing with Dodo test-mode cards
   const buy = document.getElementById("buy");
-  if (CHECKOUT) {
+  if (PRODUCT_ID) {
+    const host = DODO_TEST_MODE ? "test.checkout.dodopayments.com" : "checkout.dodopayments.com";
     const thanks = new URL("thanks.html", location.href).href;
-    buy.href = CHECKOUT + (CHECKOUT.includes("?") ? "&" : "?") + "quantity=1&redirect_url=" + encodeURIComponent(thanks);
+    buy.href = "https://" + host + "/buy/" + PRODUCT_ID
+      + "?quantity=1&redirect_url=" + encodeURIComponent(thanks);
   } else {
     buy.textContent = "Checkout opening soon";
     buy.removeAttribute("href");
